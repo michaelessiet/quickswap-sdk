@@ -48,7 +48,7 @@ export class SushiswapPairFactory {
   private _quoteChanged$: Subject<TradeContext> = new Subject<TradeContext>();
 
   constructor(
-    private _sushiswapPairFactoryContext: SushiswapPairFactoryContext
+    private _sushiswapPairFactoryContext: SushiswapPairFactoryContext, private chainId: number
   ) {}
 
   /**

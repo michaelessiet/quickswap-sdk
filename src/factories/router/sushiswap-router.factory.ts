@@ -36,7 +36,8 @@ export class SushiswapRouterFactory {
     private _fromToken: Token,
     private _toToken: Token,
     private _disableMultihops: boolean,
-    private _ethersProvider: EthersProvider
+    private _ethersProvider: EthersProvider,
+    private chainId: number
   ) {}
 
   /**
@@ -64,7 +65,7 @@ export class SushiswapRouterFactory {
 
     const contractCallContext: ContractCallContext = {
       reference: 'sushiswap-pairs',
-      contractAddress: ContractContext.pairAddress,
+      contractAddress: new ContractContext(this.chainId).pairAddress(),
       abi: ContractContext.pairAbi,
       calls: [],
     };
@@ -156,7 +157,7 @@ export class SushiswapRouterFactory {
 
     const contractCallContext: ContractCallContext<Token[][]> = {
       reference: 'sushiswap-route-quotes',
-      contractAddress: ContractContext.routerAddress,
+      contractAddress: new ContractContext(this.chainId).routerAddress(),
       abi: ContractContext.routerAbi,
       calls: [],
       context: routes,

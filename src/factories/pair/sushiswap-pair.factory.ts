@@ -26,22 +26,24 @@ export class SushiswapPairFactory {
 
   private _fromTokenFactory = new TokenFactory(
     this._sushiswapPairFactoryContext.fromToken.contractAddress,
-    this._sushiswapPairFactoryContext.ethersProvider
+    this._sushiswapPairFactoryContext.ethersProvider,
+    this.chainId
   );
 
   private _SushiswapRouterContractFactory = new SushiswapRouterContractFactory(
-    this._sushiswapPairFactoryContext.ethersProvider
+    this._sushiswapPairFactoryContext.ethersProvider, this.chainId
   );
 
   private _sushiswapPairFactory = new SushiswapPairContractFactory(
-    this._sushiswapPairFactoryContext.ethersProvider
+    this._sushiswapPairFactoryContext.ethersProvider, this.chainId
   );
 
   private _SushiswapRouterFactory = new SushiswapRouterFactory(
     this._sushiswapPairFactoryContext.fromToken,
     this._sushiswapPairFactoryContext.toToken,
     this._sushiswapPairFactoryContext.settings.disableMultihops,
-    this._sushiswapPairFactoryContext.ethersProvider
+    this._sushiswapPairFactoryContext.ethersProvider,
+    this.chainId
   );
 
   private _quoteChangeTimeout: NodeJS.Timeout | undefined;
@@ -287,7 +289,7 @@ export class SushiswapPairFactory {
     }
 
     const data = this._fromTokenFactory.generateApproveAllowanceData(
-      ContractContext.routerAddress,
+      new ContractContext(this.chainId).routerAddress(),
       '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
     );
 
@@ -594,7 +596,7 @@ export class SushiswapPairFactory {
    */
   private buildUpTransactionErc20(data: string): Transaction {
     return {
-      to: ContractContext.routerAddress,
+      to: new ContractContext(this.chainId).routerAddress(),
       from: this._sushiswapPairFactoryContext.ethereumAddress,
       data,
       value: Constants.EMPTY_HEX_STRING,
@@ -611,7 +613,7 @@ export class SushiswapPairFactory {
     data: string
   ): Transaction {
     return {
-      to: ContractContext.routerAddress,
+      to: new ContractContext(this.chainId).routerAddress(),
       from: this._sushiswapPairFactoryContext.ethereumAddress,
       data,
       value: toEthersBigNumber(parseEther(ethValue)).toHexString(),

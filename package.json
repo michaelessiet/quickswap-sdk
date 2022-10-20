@@ -1,6 +1,6 @@
 {
-  "name": "simple-sushiswap-sdk",
-  "version": "1.0.2",
+  "name": "simple-sushiswap-sdk-v2",
+  "version": "1.0.0",
   "description": "Simple easy to understand SDK for sushiswap",
   "main": "dist/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/joshstevens19/simple-sushiswap-sdk.git"
   },
-  "author": "",
+  "authors": "",
   "license": "ISC",
   "keywords": [
     "ethereum",
@@ -24,9 +24,9 @@
     "sushiswap"
   ],
   "bugs": {
-    "url": "https://github.com/joshstevens19/simple-sushiswap-sdk/issues"
+    "url": "https://github.com/michaelessiet/simple-sushiswap-sdk/issues"
   },
-  "homepage": "https://github.com/joshstevens19/simple-sushiswap-sdk#readme",
+  "homepage": "https://github.com/michaelessiet/simple-sushiswap-sdk#readme",
   "dependencies": {
     "bignumber.js": "^9.0.1",
     "ethereum-multicall": "^2.15.0",

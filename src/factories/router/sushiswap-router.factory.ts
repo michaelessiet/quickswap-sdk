@@ -29,6 +29,7 @@ import { TokenRoutes } from "./models/token-routes";
 export class SushiswapRouterFactory {
   private _multicall = new Multicall({
     ethersProvider: this._ethersProvider.provider,
+    tryAggregate: true,
   });
 
   constructor(
@@ -443,7 +444,7 @@ export class SushiswapRouterFactory {
     const convertQuoteUnformatted = new BigNumber(
       callReturnContext.returnValues[
         callReturnContext.returnValues.length - 1
-      ].hex
+      ]?.hex ?? 0
     );
     return {
       expectedConvertQuote: convertQuoteUnformatted

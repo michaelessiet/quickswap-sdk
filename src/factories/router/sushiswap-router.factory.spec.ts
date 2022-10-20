@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "bignumber.js";
 import { ChainId, ErrorCodes, SushiswapError, WETH } from "../..";
 import { TradePath } from "../../enums/trade-path";
 import { EthersProvider } from "../../ethers-provider";
@@ -46,8 +46,17 @@ describe("SushiswapRouterFactory", () => {
 
     describe("getAllPossibleRoutesWithQuotes", () => {
       it("should get all possible routes with quote", async () => {
-        const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1)
+        const factory = new SushiswapRouterFactory(
+          fromToken,
+          toToken,
+          false,
+          ethersProvider,
+          ChainId.MAINNET,
+          TradePath.erc20ToErc20
+        );
+
+        const result = await factory.getAllPossibleRoutesWithQuotes(
+          new BigNumber(100)
         );
         expect(result.length > 0).toEqual(true);
       });
@@ -71,9 +80,16 @@ describe("SushiswapRouterFactory", () => {
 
     describe("findBestRoute", () => {
       it("should find best route", async () => {
-        const result = await sushiswapRouterFactory.findBestRoute(
-          new BigNumber(100)
+        const factory = new SushiswapRouterFactory(
+          fromToken,
+          toToken,
+          false,
+          ethersProvider,
+          ChainId.MAINNET,
+          TradePath.erc20ToErc20
         );
+
+        const result = await factory.findBestRoute(new BigNumber(100));
         expect(result.bestRouteQuote.routeText).toEqual("1INCH > WETH > AAVE");
       });
 
@@ -138,23 +154,23 @@ describe("SushiswapRouterFactory", () => {
     });
 
     describe("getAllPossibleRoutesWithQuotes", () => {
+      const factory = new SushiswapRouterFactory(
+        fromToken,
+        toToken,
+        true,
+        ethersProvider,
+        ChainId.MAINNET,
+        TradePath.erc20ToEth
+      );
+
       it("should get all possible routes with quote", async () => {
-        const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
+        const result = await factory.getAllPossibleRoutesWithQuotes(
           new BigNumber(1)
         );
         expect(result.length > 0).toEqual(true);
       });
 
       it("should only return direct routes", async () => {
-        const factory = new SushiswapRouterFactory(
-          fromToken,
-          toToken,
-          true,
-          ethersProvider,
-          ChainId.MAINNET,
-          TradePath.erc20ToEth
-        );
-
         const result = await factory.getAllPossibleRoutesWithQuotes(
           new BigNumber(1)
         );
@@ -165,23 +181,21 @@ describe("SushiswapRouterFactory", () => {
     });
 
     describe("findBestRoute", () => {
+      const factory = new SushiswapRouterFactory(
+        fromToken,
+        toToken,
+        true,
+        ethersProvider,
+        ChainId.MAINNET,
+        TradePath.erc20ToEth
+      );
+
       it("should find best route", async () => {
-        const result = await sushiswapRouterFactory.findBestRoute(
-          new BigNumber(100)
-        );
+        const result = await factory.findBestRoute(new BigNumber(100));
         expect(result.bestRouteQuote.routeText).toEqual("1INCH > WETH");
       });
 
       it("should return best route", async () => {
-        const factory = new SushiswapRouterFactory(
-          fromToken,
-          toToken,
-          true,
-          ethersProvider,
-          ChainId.MAINNET,
-          TradePath.erc20ToEth
-        );
-
         const result = await factory.findBestRoute(new BigNumber(100));
 
         expect(result.bestRouteQuote.routeText).toEqual("1INCH > WETH");

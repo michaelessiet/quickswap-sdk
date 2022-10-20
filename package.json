@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joshstevens19/simple-sushiswap-sdk.git"
+    "url": "git+https://github.com/michaelessiet/simple-sushiswap-sdk-v2.git"
   },
   "authors": "",
   "license": "ISC",
@@ -24,9 +24,9 @@
     "sushiswap"
   ],
   "bugs": {
-    "url": "https://github.com/michaelessiet/simple-sushiswap-sdk/issues"
+    "url": "https://github.com/michaelessiet/simple-sushiswap-sdk-v2/issues"
   },
-  "homepage": "https://github.com/michaelessiet/simple-sushiswap-sdk#readme",
+  "homepage": "https://github.com/michaelessiet/simple-sushiswap-sdk-v2#readme",
   "dependencies": {
     "bignumber.js": "^9.0.1",
     "ethereum-multicall": "^2.15.0",

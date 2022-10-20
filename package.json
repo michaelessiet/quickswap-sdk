@@ -1,7 +1,7 @@
 {
   "name": "simple-sushiswap-sdk-v2",
   "version": "1.0.0",
-  "description": "Simple easy to understand SDK for sushiswap",
+  "description": "A simple easy to understand SDK built for sushiswap on both Ethereum mainnet and Polygon mainnet",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --watchAll --coverage",
@@ -10,7 +10,7 @@
     "gen-sushiswap-factory-v2-abi": "abi-types-generator ./src/ABI/sushiswap-factory-v2.json --output=./src/ABI/types --name=sushiswap-factory --provider=ethers_v5",
     "gen-sushiswap-pair-v2-abi": "abi-types-generator ./src/ABI/sushiswap-pair-v2.json --output=./src/ABI/types --name=sushiswap-pair --provider=ethers_v5",
     "gen-all-contract-types": "npm run gen-erc20-abi && npm run gen-sushiswap-router-v2-abi && npm run gen-sushiswap-factory-v2-abi && npm run gen-sushiswap-pair-v2-abi",
-    "prepublishOnly": "tsc"
+    "prepublish": "tsc"
   },
   "repository": {
     "type": "git",

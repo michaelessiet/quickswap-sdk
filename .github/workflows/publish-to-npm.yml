@@ -12,10 +12,12 @@ jobs:
         with:
           node-version: 12
       
+      - id: install 
+        run: npm install
       - id: test
-        - run: npm install
-        - run: npm test
-        - run: npm prepublish
+        run: npm test
+      - id: prepublish
+        run: npm prepublish
       
       - id: publish
         uses: JS-DevTools/npm-publish@v1

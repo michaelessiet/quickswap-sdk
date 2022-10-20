@@ -7,7 +7,6 @@ import { SushiswapError } from "../../common/errors/sushiswap-error";
 import { hexlify } from "../../common/utils/hexlify";
 import { parseEther } from "../../common/utils/parse-ether";
 import { toEthersBigNumber } from "../../common/utils/to-ethers-big-number";
-import { getTradePath } from "../../common/utils/trade-path";
 import { TradePath } from "../../enums/trade-path";
 import { BestRouteQuotes } from "../router/models/best-route-quotes";
 import { RouteQuote } from "../router/models/route-quote";
@@ -624,14 +623,6 @@ export class SushiswapPairFactory {
       value: toEthersBigNumber(parseEther(ethValue)).toHexString(),
     };
   }
-
-  /**
-   * Get the trade path
-   */
-  // private tradePath(): TradePath {
-  //   const network = this._sushiswapPairFactoryContext.ethersProvider.network();
-  //   return getTradePath(network.chainId, this.fromToken, this.toToken);
-  // }
 
   /**
    * Generates the trade datetime unix time

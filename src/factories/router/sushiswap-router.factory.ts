@@ -1,31 +1,30 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 import {
   CallReturnContext,
   ContractCallContext,
   ContractCallReturnContext,
   Multicall,
-} from 'ethereum-multicall';
-import { ContractContext } from '../../common/contract-context';
-import { ErrorCodes } from '../../common/errors/error-codes';
-import { SushiswapError } from '../../common/errors/sushiswap-error';
-import { COMP } from '../../common/tokens/comp';
-import { DAI } from '../../common/tokens/dai';
-import { USDC } from '../../common/tokens/usdc';
-import { USDT } from '../../common/tokens/usdt';
-import { WETH } from '../../common/tokens/weth';
-import { formatEther } from '../../common/utils/format-ether';
-import { hexlify } from '../../common/utils/hexlify';
-import { onlyUnique } from '../../common/utils/only-unique';
-import { parseEther } from '../../common/utils/parse-ether';
-import { getTradePath } from '../../common/utils/trade-path';
-import { ChainId } from '../../enums/chain-id';
-import { TradePath } from '../../enums/trade-path';
-import { EthersProvider } from '../../ethers-provider';
-import { Token } from '../token/models/token';
-import { RouterDirection } from './enums/router-direction';
-import { BestRouteQuotes } from './models/best-route-quotes';
-import { RouteQuote } from './models/route-quote';
-import { TokenRoutes } from './models/token-routes';
+} from "ethereum-multicall";
+import { ContractContext } from "../../common/contract-context";
+import { ErrorCodes } from "../../common/errors/error-codes";
+import { SushiswapError } from "../../common/errors/sushiswap-error";
+import { COMP } from "../../common/tokens/comp";
+import { DAI } from "../../common/tokens/dai";
+import { USDC } from "../../common/tokens/usdc";
+import { USDT } from "../../common/tokens/usdt";
+import { WETH } from "../../common/tokens/weth";
+import { formatEther } from "../../common/utils/format-ether";
+import { hexlify } from "../../common/utils/hexlify";
+import { onlyUnique } from "../../common/utils/only-unique";
+import { parseEther } from "../../common/utils/parse-ether";
+import { ChainId } from "../../enums/chain-id";
+import { TradePath } from "../../enums/trade-path";
+import { EthersProvider } from "../../ethers-provider";
+import { Token } from "../token/models/token";
+import { RouterDirection } from "./enums/router-direction";
+import { BestRouteQuotes } from "./models/best-route-quotes";
+import { RouteQuote } from "./models/route-quote";
+import { TokenRoutes } from "./models/token-routes";
 
 export class SushiswapRouterFactory {
   private _multicall = new Multicall({
@@ -65,7 +64,7 @@ export class SushiswapRouterFactory {
     }
 
     const contractCallContext: ContractCallContext = {
-      reference: 'sushiswap-pairs',
+      reference: "sushiswap-pairs",
       contractAddress: new ContractContext(this.chainId).pairAddress(),
       abi: ContractContext.pairAbi,
       calls: [],
@@ -82,7 +81,7 @@ export class SushiswapRouterFactory {
 
         contractCallContext.calls.push({
           reference: `${fromToken.contractAddress}-${toToken.contractAddress}-${fromToken.symbol}/${toToken.symbol}`,
-          methodName: 'getPair',
+          methodName: "getPair",
           methodParameters: [
             fromToken.contractAddress,
             toToken.contractAddress,
@@ -96,7 +95,7 @@ export class SushiswapRouterFactory {
     const results = contractCallResults.results[contractCallContext.reference];
 
     const availablePairs = results.callsReturnContext.filter(
-      (c) => c.returnValues[0] !== '0x0000000000000000000000000000000000000000'
+      (c) => c.returnValues[0] !== "0x0000000000000000000000000000000000000000"
     );
 
     const fromTokenRoutes: TokenRoutes = {
@@ -157,7 +156,7 @@ export class SushiswapRouterFactory {
     const routes = await this.getAllPossibleRoutes();
 
     const contractCallContext: ContractCallContext<Token[][]> = {
-      reference: 'sushiswap-route-quotes',
+      reference: "sushiswap-route-quotes",
       contractAddress: new ContractContext(this.chainId).routerAddress(),
       abi: ContractContext.routerAbi,
       calls: [],
@@ -169,7 +168,7 @@ export class SushiswapRouterFactory {
 
       contractCallContext.calls.push({
         reference: `route${i}`,
-        methodName: 'getAmountsOut',
+        methodName: "getAmountsOut",
         methodParameters: [
           tradeAmount,
           routeCombo.map((c) => {
@@ -330,7 +329,7 @@ export class SushiswapRouterFactory {
     allAvailablePairs: CallReturnContext[]
   ): Token[] {
     const fromRouterDirection = allAvailablePairs.filter(
-      (c) => c.reference.split('-')[0] === token.contractAddress
+      (c) => c.reference.split("-")[0] === token.contractAddress
     );
     const tokens: Token[] = [];
 
@@ -338,7 +337,7 @@ export class SushiswapRouterFactory {
       const context = fromRouterDirection[index];
       tokens.push(
         this.allTokens.find(
-          (t) => t.contractAddress === context.reference.split('-')[1]
+          (t) => t.contractAddress === context.reference.split("-")[1]
         )!
       );
     }
@@ -351,7 +350,7 @@ export class SushiswapRouterFactory {
     allAvailablePairs: CallReturnContext[]
   ): Token[] {
     const toRouterDirection = allAvailablePairs.filter(
-      (c) => c.reference.split('-')[1] === token.contractAddress
+      (c) => c.reference.split("-")[1] === token.contractAddress
     );
     const tokens: Token[] = [];
 
@@ -359,7 +358,7 @@ export class SushiswapRouterFactory {
       const context = toRouterDirection[index];
       tokens.push(
         this.allTokens.find(
-          (t) => t.contractAddress === context.reference.split('-')[0]
+          (t) => t.contractAddress === context.reference.split("-")[0]
         )!
       );
     }
@@ -459,7 +458,7 @@ export class SushiswapRouterFactory {
         .map((c: string) => {
           return this.allTokens.find((t) => t.contractAddress === c)!.symbol;
         })
-        .join(' > '),
+        .join(" > "),
       // route array is always in the 1 index of the method parameters
       routePathArray: callReturnContext.methodParameters[1],
     };
@@ -490,7 +489,7 @@ export class SushiswapRouterFactory {
         .map((c: string) => {
           return this.allTokens.find((t) => t.contractAddress === c)!.symbol;
         })
-        .join(' > '),
+        .join(" > "),
       // route array is always in the 1 index of the method parameters
       routePathArray: callReturnContext.methodParameters[1],
     };
@@ -515,14 +514,6 @@ export class SushiswapRouterFactory {
         );
     }
   }
-
-  /**
-   * Get the trade path
-   */
-  // private tradePath(): TradePath {
-  //   const network = this._ethersProvider.network();
-  //   return getTradePath(network.chainId, this._fromToken, this._toToken);
-  // }
 
   private get allTokens(): Token[] {
     return [this._fromToken, this._toToken, ...this.allMainTokens];

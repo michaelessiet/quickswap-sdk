@@ -1,6 +1,7 @@
 import { ErrorCodes } from "../../common/errors/error-codes";
 import { SushiswapError } from "../../common/errors/sushiswap-error";
 import { isAddress } from "../../common/utils/is-address";
+import { TradePath } from "../../enums/trade-path";
 import { EthersProvider } from "../../ethers-provider";
 import { TokensFactory } from "../token/tokens.factory";
 import {
@@ -113,7 +114,8 @@ export class SushiswapPair {
 
     return new SushiswapPairFactory(
       sushiswapFactoryContext,
-      (<SushiswapPairContextForChainId>this._sushiswapPairContext).chainId
+      (<SushiswapPairContextForChainId>this._sushiswapPairContext).chainId,
+      this._sushiswapPairContext.tradePath
     );
   }
 }

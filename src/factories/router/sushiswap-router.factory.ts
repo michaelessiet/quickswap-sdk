@@ -37,7 +37,8 @@ export class SushiswapRouterFactory {
     private _toToken: Token,
     private _disableMultihops: boolean,
     private _ethersProvider: EthersProvider,
-    private chainId: number
+    private chainId: number,
+    private tradePath: TradePath
   ) {}
 
   /**
@@ -373,7 +374,7 @@ export class SushiswapRouterFactory {
   private buildRouteQuotesFromResults(
     contractCallReturnContext: ContractCallReturnContext
   ): RouteQuote[] {
-    const tradePath = this.tradePath();
+    const tradePath = this.tradePath;
 
     const result: RouteQuote[] = [];
 
@@ -500,7 +501,7 @@ export class SushiswapRouterFactory {
    * @param amountToTrade The amount to trade
    */
   private formatAmountToTrade(amountToTrade: BigNumber): string {
-    switch (this.tradePath()) {
+    switch (this.tradePath) {
       case TradePath.ethToErc20:
         const amountToTradeWei = parseEther(amountToTrade);
         return hexlify(amountToTradeWei);
@@ -509,7 +510,7 @@ export class SushiswapRouterFactory {
         return hexlify(amountToTrade.shiftedBy(this._fromToken.decimals));
       default:
         throw new SushiswapError(
-          `Internal trade path ${this.tradePath()} is not supported`,
+          `Internal trade path ${this.tradePath} is not supported`,
           ErrorCodes.tradePathIsNotSupported
         );
     }
@@ -518,10 +519,10 @@ export class SushiswapRouterFactory {
   /**
    * Get the trade path
    */
-  private tradePath(): TradePath {
-    const network = this._ethersProvider.network();
-    return getTradePath(network.chainId, this._fromToken, this._toToken);
-  }
+  // private tradePath(): TradePath {
+  //   const network = this._ethersProvider.network();
+  //   return getTradePath(network.chainId, this._fromToken, this._toToken);
+  // }
 
   private get allTokens(): Token[] {
     return [this._fromToken, this._toToken, ...this.allMainTokens];

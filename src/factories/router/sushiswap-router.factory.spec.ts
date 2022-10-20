@@ -16,7 +16,7 @@ describe('SushiswapRouterFactory', () => {
       fromToken,
       toToken,
       false,
-      ethersProvider
+      ethersProvider,ChainId.MAINNET
     );
 
     describe('getAllPossibleRoutes', () => {
@@ -31,7 +31,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         const result = await factory.getAllPossibleRoutes();
@@ -52,7 +52,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         const result = await factory.getAllPossibleRoutesWithQuotes(
@@ -75,7 +75,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         await expect(
@@ -98,7 +98,7 @@ describe('SushiswapRouterFactory', () => {
       fromToken,
       toToken,
       false,
-      ethersProvider
+      ethersProvider, ChainId.MAINNET
     );
 
     describe('getAllPossibleRoutes', () => {
@@ -113,7 +113,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         const result = await factory.getAllPossibleRoutes();
@@ -137,7 +137,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         const result = await factory.getAllPossibleRoutesWithQuotes(
@@ -162,7 +162,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         const result = await factory.findBestRoute(new BigNumber(100));
@@ -184,7 +184,7 @@ describe('SushiswapRouterFactory', () => {
       fromToken,
       toToken,
       false,
-      ethersProvider
+      ethersProvider, ChainId.MAINNET
     );
 
     describe('getAllPossibleRoutes', () => {
@@ -199,7 +199,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         const result = await factory.getAllPossibleRoutes();
@@ -223,7 +223,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         const result = await factory.getAllPossibleRoutesWithQuotes(
@@ -248,7 +248,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider, ChainId.MAINNET
         );
 
         const result = await factory.findBestRoute(new BigNumber(100));

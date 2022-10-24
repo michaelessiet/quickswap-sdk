@@ -8,10 +8,10 @@ import {
 import { EthersContractContextV5 } from 'ethereum-abi-types-generator';
 
 export type ContractContext = EthersContractContextV5<
-  SushiswapPair,
-  SushiswapPairMethodNames,
-  SushiswapPairEventsContext,
-  SushiswapPairEvents
+  QuickswapPair,
+  QuickswapPairMethodNames,
+  QuickswapPairEventsContext,
+  QuickswapPairEvents
 >;
 
 export declare type EventFilter = {
@@ -54,11 +54,11 @@ export interface ContractCallOverrides {
    */
   gasLimit?: number;
 }
-export type SushiswapPairEvents = 'PairCreated';
-export interface SushiswapPairEventsContext {
+export type QuickswapPairEvents = 'PairCreated';
+export interface QuickswapPairEventsContext {
   PairCreated(...parameters: any): EventFilter;
 }
-export type SushiswapPairMethodNames =
+export type QuickswapPairMethodNames =
   | 'new'
   | 'allPairs'
   | 'allPairsLength'
@@ -68,7 +68,7 @@ export type SushiswapPairMethodNames =
   | 'getPair'
   | 'setFeeTo'
   | 'setFeeToSetter';
-export interface SushiswapPair {
+export interface QuickswapPair {
   /**
    * Payable: false
    * Constant: false

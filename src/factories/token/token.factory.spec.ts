@@ -3,13 +3,14 @@ import { ContractContext } from '../../common/contract-context';
 import { EthersProvider } from '../../ethers-provider';
 import { MOCK1INCH } from '../../mocks/1inch-token.mock';
 import { MockEthereumAddress } from '../../mocks/ethereum-address.mock';
+import { MOCK_PROVIDER_URL } from '../../mocks/provider-url.mock';
 import { TokenFactory } from './token.factory';
 
 describe('TokenFactory', () => {
-  const ethersProvider = new EthersProvider(ChainId.MAINNET);
+  const ethersProvider = new EthersProvider(ChainId.MATIC, MOCK_PROVIDER_URL());
   const token = MOCK1INCH();
 
-  const tokenFactory = new TokenFactory(token.contractAddress, ethersProvider,ChainId.MAINNET);
+  const tokenFactory = new TokenFactory(token.contractAddress, ethersProvider,ChainId.MATIC);
 
   it('getToken', async () => {
     const result = await tokenFactory.getToken();
@@ -23,11 +24,11 @@ describe('TokenFactory', () => {
 
   it('generateApproveAllowanceData', () => {
     const result = tokenFactory.generateApproveAllowanceData(
-      new ContractContext(ChainId.MAINNET).routerAddress(),
+      new ContractContext(ChainId.MATIC).routerAddress(),
       '0x05'
     );
     expect(result).toEqual(
-      '0x095ea7b3000000000000000000000000d9e1ce17f2641f24ae83637ab66a2cca9c378b9f0000000000000000000000000000000000000000000000000000000000000005'
+      '0x095ea7b3000000000000000000000000a5e0829caced8ffdd4de3c43696c57f7d7a678ff0000000000000000000000000000000000000000000000000000000000000005'
     );
   });
 
@@ -38,7 +39,7 @@ describe('TokenFactory', () => {
 
   it('totalSupply', async () => {
     const result = await tokenFactory.totalSupply();
-    expect(result).toEqual('0x04d8c55aefb8c05b5c000000');
+    expect(result).toEqual('0x181c23647a808a16712b');
   });
 
   it('getAllowanceAndBalanceOf', async () => {

@@ -4,4 +4,4 @@ export { USDC } from "./usdc";
 export { USDT } from "./usdt";
 export { WETH } from "./weth";
 export { MATIC } from "./matic";
-export { ETH } from "./eth";
+export {WMATIC} from './wmatic'

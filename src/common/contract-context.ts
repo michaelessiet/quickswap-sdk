@@ -8,52 +8,43 @@ export class ContractContext {
   chainId;
 
   /**
-   * The sushiswap router address
+   * The quickswap router address
    */
   // public static routerAddress = "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F";
   public routerAddress() {
-    const isMatic = this.chainId === 137;
-    return isMatic
-      ? "0x1b02da8cb0d097eb8d57a175b88c7d8b47997506"
-      : "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F";
+    return "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff"
   }
 
   /**
-   * The sushiswap factory address
+   * The quickswap factory address
    */
   // public static factoryAddress = "0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac";
   public factoryAddress() {
-    const isMatic = this.chainId === 137;
-    return isMatic
-      ? "0xc35DADB65012eC5796536bD9864eD8773aBc74C4"
-      : "0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac";
+    return "0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32";
   }
 
   /**
-   * The sushiswap pair address
+   * The quickswap pair address
    */
   // public static pairAddress = "0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac";
   public pairAddress() {
-    const isMatic = this.chainId === 137;
-    return isMatic
-      ? "0xc35DADB65012eC5796536bD9864eD8773aBc74C4"
-      : "0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac";
+    return "0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32";
   }
 
   /**
-   * sushiswap v2 router
+   * quickswap v2 router
    */
-  public static routerAbi: any[] = require("../ABI/sushiswap-router-v2.json");
+  public static routerAbi: any[] = require("../ABI/quickswap-router.json");
 
   /**
-   * sushiswap v2 factory
+   * quickswap v2 factory
    */
-  public static factoryAbi: any[] = require("../ABI/sushiswap-factory-v2.json");
+  public static factoryAbi: any[] = require("../ABI/quickswap-factory.json");
 
   /**
-   * sushiswap v2 pair
+   * quickswap v2 pair
    */
-  public static pairAbi: any[] = require("../ABI/sushiswap-pair-v2.json");
+  public static pairAbi: any[] = require("../ABI/quickswap-pair.json");
 
   /**
    * ERC20 abi

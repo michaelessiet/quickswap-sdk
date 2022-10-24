@@ -6,15 +6,15 @@
   "scripts": {
     "test": "jest",
     "gen-erc20-abi": "abi-types-generator ./src/ABI/erc-20-abi.json --output=./src/ABI/types --name=erc20-contract --provider=ethers_v5",
-    "gen-sushiswap-router-v2-abi": "abi-types-generator ./src/ABI/sushiswap-router-v2.json --output=./src/ABI/types --name=sushiswap-router --provider=ethers_v5",
-    "gen-sushiswap-factory-v2-abi": "abi-types-generator ./src/ABI/sushiswap-factory-v2.json --output=./src/ABI/types --name=sushiswap-factory --provider=ethers_v5",
-    "gen-sushiswap-pair-v2-abi": "abi-types-generator ./src/ABI/sushiswap-pair-v2.json --output=./src/ABI/types --name=sushiswap-pair --provider=ethers_v5",
-    "gen-all-contract-types": "npm run gen-erc20-abi && npm run gen-sushiswap-router-v2-abi && npm run gen-sushiswap-factory-v2-abi && npm run gen-sushiswap-pair-v2-abi",
+    "gen-quickswap-router-abi": "abi-types-generator ./src/ABI/quickswap-router.json --output=./src/ABI/types --name=quickswap-router --provider=ethers_v5",
+    "gen-quickswap-factory-abi": "abi-types-generator ./src/ABI/quickswap-factory.json --output=./src/ABI/types --name=quickswap-factory --provider=ethers_v5",
+    "gen-quickswap-pair-abi": "abi-types-generator ./src/ABI/quickswap-pair.json --output=./src/ABI/types --name=quickswap-pair --provider=ethers_v5",
+    "gen-all-contract-types": "npm run gen-erc20-abi && npm run gen-quickswap-router-abi && npm run gen-quickswap-factory-abi && npm run gen-quickswap-pair-abi",
     "prepublishOnly": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/michaelessiet/simple-sushiswap-sdk-v2.git"
+    "url": "git+https://github.com/michaelessiet/quickswap-sdk.git"
   },
   "authors": "",
   "license": "ISC",
@@ -24,9 +24,9 @@
     "quickswap"
   ],
   "bugs": {
-    "url": "https://github.com/michaelessiet/simple-sushiswap-sdk-v2/issues"
+    "url": "https://github.com/michaelessiet/quickswap-sdk/issues"
   },
-  "homepage": "https://github.com/michaelessiet/simple-sushiswap-sdk-v2#readme",
+  "homepage": "https://github.com/michaelessiet/quickswap-sdk#readme",
   "dependencies": {
     "bignumber.js": "^9.0.1",
     "ethereum-multicall": "^2.15.0",

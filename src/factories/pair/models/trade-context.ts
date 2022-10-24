@@ -1,4 +1,4 @@
-import { Observable as SushiswapStream } from 'rxjs';
+import { Observable as QuickswapStream } from 'rxjs';
 import { RouteQuote } from '../../router/models/route-quote';
 import { Token } from '../../token/models/token';
 import { Transaction } from './transaction';
@@ -21,6 +21,6 @@ export interface TradeContext {
     balance: string;
   };
   transaction: Transaction;
-  quoteChanged$: SushiswapStream<TradeContext>;
+  quoteChanged$: QuickswapStream<TradeContext>;
   destroy: () => void;
 }

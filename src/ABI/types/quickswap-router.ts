@@ -8,10 +8,10 @@ import {
 import { EthersContractContextV5 } from 'ethereum-abi-types-generator';
 
 export type ContractContext = EthersContractContextV5<
-  SushiswapRouter,
-  SushiswapRouterMethodNames,
-  SushiswapRouterEventsContext,
-  SushiswapRouterEvents
+  QuickswapRouter,
+  QuickswapRouterMethodNames,
+  QuickswapRouterEventsContext,
+  QuickswapRouterEvents
 >;
 
 export declare type EventFilter = {
@@ -54,9 +54,10 @@ export interface ContractCallOverrides {
    */
   gasLimit?: number;
 }
-export type SushiswapRouterEvents = undefined;
-export interface SushiswapRouterEventsContext {}
-export type SushiswapRouterMethodNames =
+export type QuickswapRouterEvents = undefined;
+export interface QuickswapRouterEventsContext {}
+export type QuickswapRouterMethodNames =
+  | 'new'
   | 'WETH'
   | 'addLiquidity'
   | 'addLiquidityETH'
@@ -81,11 +82,24 @@ export type SushiswapRouterMethodNames =
   | 'swapExactTokensForTokensSupportingFeeOnTransferTokens'
   | 'swapTokensForExactETH'
   | 'swapTokensForExactTokens';
-export interface SushiswapRouter {
+export interface QuickswapRouter {
+  /**
+   * Payable: false
+   * Constant: false
+   * StateMutability: nonpayable
+   * Type: constructor
+   * @param _factory Type: address, Indexed: false
+   * @param _WETH Type: address, Indexed: false
+   */
+  'new'(
+    _factory: string,
+    _WETH: string,
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>;
   /**
    * Payable: false
    * Constant: true
-   * StateMutability: pure
+   * StateMutability: view
    * Type: function
    */
   WETH(overrides?: ContractCallOverrides): Promise<string>;
@@ -138,7 +152,7 @@ export interface SushiswapRouter {
   /**
    * Payable: false
    * Constant: true
-   * StateMutability: pure
+   * StateMutability: view
    * Type: function
    */
   factory(overrides?: ContractCallOverrides): Promise<string>;

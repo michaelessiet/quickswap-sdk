@@ -1,9 +1,9 @@
-import { ErrorCodes, SushiswapError } from "../..";
+import { ErrorCodes, QuickswapError } from "../..";
 import { ChainId } from "../../enums/chain-id";
 import { Token } from "../../factories/token/models/token";
 
 /**
- * WMATIC token context
+ * MATIC token context
  */
 export class MATIC {
   public static MATIC(): Token {
@@ -33,7 +33,7 @@ export class MATIC {
       case ChainId.MUMBAI:
         return this.MUMBAI()
       default:
-        throw new SushiswapError(
+        throw new QuickswapError(
           `${chainId} is not allowed`,
           ErrorCodes.tokenChainIdContractDoesNotExist
         );

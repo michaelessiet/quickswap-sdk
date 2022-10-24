@@ -1,3 +1,3 @@
 export function MockEthereumAddress(): string {
-  return '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9';
+  return '0xB576f4Fac19eA8935A4BAA4F7AD5bc566A5845b1';
 }

@@ -1,24 +1,24 @@
 export {
-  Observable as SushiswapStream,
-  Subscription as SushiswapSubscription,
+  Observable as QuickswapStream,
+  Subscription as QuickswapSubscription,
 } from "rxjs";
 export { ErrorCodes } from "./common/errors/error-codes";
-export { SushiswapError } from "./common/errors/sushiswap-error";
+export { QuickswapError } from "./common/errors/quickswap-error";
 export * from "./common/tokens";
 export { ChainId } from "./enums/chain-id";
 export {
-  SushiswapPairContextForChainId,
-  SushiswapPairContextForProviderUrl,
-} from "./factories/pair/models/sushiswap-pair-contexts";
-export { SushiswapPairSettings } from "./factories/pair/models/sushiswap-pair-settings";
+  QuickswapPairContextForChainId,
+  QuickswapPairContextForProviderUrl,
+} from "./factories/pair/models/pair-contexts";
+export { QuickswapPairSettings } from "./factories/pair/models/pair-settings";
 export { TradeContext } from "./factories/pair/models/trade-context";
 export { Transaction } from "./factories/pair/models/transaction";
-export { SushiswapPair } from "./factories/pair/sushiswap-pair";
-export { SushiswapPairContractFactoryPublic } from "./factories/pair/sushiswap-pair-contract.factory.public";
-export { SushiswapPairFactory } from "./factories/pair/sushiswap-pair.factory";
+export { QuickswapPair } from "./factories/pair/pair";
+export { QuickswapPairContractFactoryPublic } from "./factories/pair/pair-contract.factory.public";
+export { QuickswapPairFactory } from "./factories/pair/pair.factory";
 export { RouteQuote } from "./factories/router/models/route-quote";
-export { SushiswapRouterContractFactoryPublic } from "./factories/router/sushiswap-router-contract.factory.public";
-export { SushiswapContractFactoryPublic } from "./factories/sushiswap-factory/sushiswap-contract.factory.public";
+export { QuickswapRouterContractFactoryPublic } from "./factories/router/router-contract.factory.public";
+export { QuickswapContractFactoryPublic } from "./factories/quickswap-factory/contract.factory.public";
 export { AllowanceAndBalanceOf } from "./factories/token/models/allowance-balance-of";
 export { Token } from "./factories/token/models/token";
 export { TokenFactoryPublic } from "./factories/token/token.factory.public";

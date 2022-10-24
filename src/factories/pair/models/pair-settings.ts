@@ -1,4 +1,4 @@
-export class SushiswapPairSettings {
+export class QuickswapPairSettings {
   slippage: number;
   deadlineMinutes: number;
   disableMultihops: boolean;

@@ -3,47 +3,47 @@ import { Subject } from "rxjs";
 import { Constants } from "../../common/constants";
 import { ContractContext } from "../../common/contract-context";
 import { ErrorCodes } from "../../common/errors/error-codes";
-import { SushiswapError } from "../../common/errors/sushiswap-error";
+import { QuickswapError } from "../../common/errors/quickswap-error";
 import { hexlify } from "../../common/utils/hexlify";
 import { parseEther } from "../../common/utils/parse-ether";
 import { toEthersBigNumber } from "../../common/utils/to-ethers-big-number";
 import { TradePath } from "../../enums/trade-path";
 import { BestRouteQuotes } from "../router/models/best-route-quotes";
 import { RouteQuote } from "../router/models/route-quote";
-import { SushiswapRouterContractFactory } from "../router/sushiswap-router-contract.factory";
-import { SushiswapRouterFactory } from "../router/sushiswap-router.factory";
+import { QuickswapRouterContractFactory } from "../router/router-contract.factory";
+import { QuickswapRouterFactory } from "../router/router.factory";
 import { AllowanceAndBalanceOf } from "../token/models/allowance-balance-of";
 import { Token } from "../token/models/token";
 import { TokenFactory } from "../token/token.factory";
-import { SushiswapPairFactoryContext } from "./models/sushiswap-pair-factory-context";
+import { QuickswapPairFactoryContext } from "./models/pair-factory-context";
 import { TradeContext } from "./models/trade-context";
 import { Transaction } from "./models/transaction";
-import { SushiswapPairContractFactory } from "./sushiswap-pair-contract.factory";
+import { QuickswapPairContractFactory } from "./pair-contract.factory";
 
-export class SushiswapPairFactory {
+export class QuickswapPairFactory {
   private readonly LIQUIDITY_PROVIDER_FEE = 0.003;
 
   private _fromTokenFactory = new TokenFactory(
-    this._sushiswapPairFactoryContext.fromToken.contractAddress,
-    this._sushiswapPairFactoryContext.ethersProvider,
+    this._quickswapPairFactoryContext.fromToken.contractAddress,
+    this._quickswapPairFactoryContext.ethersProvider,
     this.chainId
   );
 
-  private _SushiswapRouterContractFactory = new SushiswapRouterContractFactory(
-    this._sushiswapPairFactoryContext.ethersProvider,
+  private _QuickswapRouterContractFactory = new QuickswapRouterContractFactory(
+    this._quickswapPairFactoryContext.ethersProvider,
     this.chainId
   );
 
-  private _sushiswapPairFactory = new SushiswapPairContractFactory(
-    this._sushiswapPairFactoryContext.ethersProvider,
+  private _quickswapPairFactory = new QuickswapPairContractFactory(
+    this._quickswapPairFactoryContext.ethersProvider,
     this.chainId
   );
 
-  private _SushiswapRouterFactory = new SushiswapRouterFactory(
-    this._sushiswapPairFactoryContext.fromToken,
-    this._sushiswapPairFactoryContext.toToken,
-    this._sushiswapPairFactoryContext.settings.disableMultihops,
-    this._sushiswapPairFactoryContext.ethersProvider,
+  private _QuickswapRouterFactory = new QuickswapRouterFactory(
+    this._quickswapPairFactoryContext.fromToken,
+    this._quickswapPairFactoryContext.toToken,
+    this._quickswapPairFactoryContext.settings.disableMultihops,
+    this._quickswapPairFactoryContext.ethersProvider,
     this.chainId,
     this.tradePath
   );
@@ -52,7 +52,7 @@ export class SushiswapPairFactory {
   private _quoteChanged$: Subject<TradeContext> = new Subject<TradeContext>();
 
   constructor(
-    private _sushiswapPairFactoryContext: SushiswapPairFactoryContext,
+    private _quickswapPairFactoryContext: QuickswapPairFactoryContext,
     private chainId: number,
     private tradePath: TradePath
   ) {}
@@ -61,21 +61,21 @@ export class SushiswapPairFactory {
    * The to token
    */
   public get toToken(): Token {
-    return this._sushiswapPairFactoryContext.toToken;
+    return this._quickswapPairFactoryContext.toToken;
   }
 
   /**
    * The from token
    */
   public get fromToken(): Token {
-    return this._sushiswapPairFactoryContext.fromToken;
+    return this._quickswapPairFactoryContext.fromToken;
   }
 
   /**
    * Get the contract calls
    */
-  public get contractCalls(): SushiswapPairContractFactory {
-    return this._sushiswapPairFactory;
+  public get contractCalls(): QuickswapPairContractFactory {
+    return this._quickswapPairFactory;
   }
 
   /**
@@ -91,7 +91,7 @@ export class SushiswapPairFactory {
       case TradePath.erc20ToErc20:
         return await this.getTokenTradeAmountErc20ToErc20(amount);
       default:
-        throw new SushiswapError(
+        throw new QuickswapError(
           `${this.tradePath} is not defined`,
           ErrorCodes.tradePathIsNotSupported
         );
@@ -131,8 +131,8 @@ export class SushiswapPairFactory {
   /**
    * Route getter
    */
-  private get _routes(): SushiswapRouterFactory {
-    return this._SushiswapRouterFactory;
+  private get _routes(): QuickswapRouterFactory {
+    return this._QuickswapRouterFactory;
   }
 
   /**
@@ -234,8 +234,8 @@ export class SushiswapPairFactory {
     hasEnough: boolean;
     balance: string;
   }> {
-    const balance = await this._sushiswapPairFactoryContext.ethersProvider.balanceOf(
-      this._sushiswapPairFactoryContext.ethereumAddress
+    const balance = await this._quickswapPairFactoryContext.ethersProvider.balanceOf(
+      this._quickswapPairFactoryContext.ethereumAddress
     );
 
     const bigNumberBalance = new BigNumber(balance).shiftedBy(
@@ -260,7 +260,7 @@ export class SushiswapPairFactory {
    */
   public async getAllowanceAndBalanceOfForFromToken(): Promise<AllowanceAndBalanceOf> {
     return await this._fromTokenFactory.getAllowanceAndBalanceOf(
-      this._sushiswapPairFactoryContext.ethereumAddress
+      this._quickswapPairFactoryContext.ethereumAddress
     );
   }
 
@@ -274,7 +274,7 @@ export class SushiswapPairFactory {
     }
 
     const allowance = await this._fromTokenFactory.allowance(
-      this._sushiswapPairFactoryContext.ethereumAddress
+      this._quickswapPairFactoryContext.ethereumAddress
     );
 
     return allowance;
@@ -286,8 +286,8 @@ export class SushiswapPairFactory {
    */
   public async generateApproveMaxAllowanceData(): Promise<Transaction> {
     if (this.tradePath === TradePath.ethToErc20) {
-      throw new SushiswapError(
-        "You do not need to generate approve sushiswap allowance when doing eth > erc20",
+      throw new QuickswapError(
+        "You do not need to generate approve quickswap allowance when doing eth > erc20",
         ErrorCodes.generateApproveMaxAllowanceDataNotAllowed
       );
     }
@@ -299,7 +299,7 @@ export class SushiswapPairFactory {
 
     return {
       to: this.fromToken.contractAddress,
-      from: this._sushiswapPairFactoryContext.ethereumAddress,
+      from: this._quickswapPairFactoryContext.ethereumAddress,
       data,
       value: Constants.EMPTY_HEX_STRING,
     };
@@ -349,7 +349,7 @@ export class SushiswapPairFactory {
       bestRouteQuote.expectedConvertQuote
     ).minus(
       new BigNumber(bestRouteQuote.expectedConvertQuote)
-        .times(this._sushiswapPairFactoryContext.settings.slippage)
+        .times(this._quickswapPairFactoryContext.settings.slippage)
         .toFixed(this.fromToken.decimals)
     );
 
@@ -410,7 +410,7 @@ export class SushiswapPairFactory {
       bestRouteQuote.expectedConvertQuote
     ).minus(
       new BigNumber(bestRouteQuote.expectedConvertQuote)
-        .times(this._sushiswapPairFactoryContext.settings.slippage)
+        .times(this._quickswapPairFactoryContext.settings.slippage)
         .toFixed(this.fromToken.decimals)
     );
 
@@ -471,7 +471,7 @@ export class SushiswapPairFactory {
       bestRouteQuote.expectedConvertQuote
     ).minus(
       new BigNumber(bestRouteQuote.expectedConvertQuote)
-        .times(this._sushiswapPairFactoryContext.settings.slippage)
+        .times(this._quickswapPairFactoryContext.settings.slippage)
         .toFixed(this.toToken.decimals)
     );
 
@@ -520,17 +520,17 @@ export class SushiswapPairFactory {
     routePathArray: string[],
     deadline: string
   ): string {
-    // sushiswap adds extra digits on even if the token is say 8 digits long
+    // quickswap adds extra digits on even if the token is say 8 digits long
     const convertedMinTokens = tokenAmount
       .shiftedBy(this.toToken.decimals)
       .decimalPlaces(0);
 
     const hex = hexlify(convertedMinTokens);
 
-    return this._SushiswapRouterContractFactory.swapExactETHForTokens(
+    return this._QuickswapRouterContractFactory.swapExactETHForTokens(
       hex,
       routePathArray,
-      this._sushiswapPairFactoryContext.ethereumAddress,
+      this._quickswapPairFactoryContext.ethereumAddress,
       deadline
     );
   }
@@ -548,18 +548,18 @@ export class SushiswapPairFactory {
     routePathArray: string[],
     deadline: string
   ): string {
-    // sushiswap adds extra digits on even if the token is say 8 digits long
+    // quickswap adds extra digits on even if the token is say 8 digits long
     const amountIn = tokenAmount
       .shiftedBy(this.fromToken.decimals)
       .decimalPlaces(0);
 
     const ethAmountOutWei = hexlify(parseEther(ethAmountOutMin));
 
-    return this._SushiswapRouterContractFactory.swapExactTokensForETH(
+    return this._QuickswapRouterContractFactory.swapExactTokensForETH(
       hexlify(amountIn),
       ethAmountOutWei,
       routePathArray,
-      this._sushiswapPairFactoryContext.ethereumAddress,
+      this._quickswapPairFactoryContext.ethereumAddress,
       deadline
     );
   }
@@ -577,7 +577,7 @@ export class SushiswapPairFactory {
     routePathArray: string[],
     deadline: string
   ): string {
-    // sushiswap adds extra digits on even if the token is say 8 digits long
+    // quickswap adds extra digits on even if the token is say 8 digits long
     const amountIn = tokenAmount
       .shiftedBy(this.fromToken.decimals)
       .decimalPlaces(0);
@@ -585,11 +585,11 @@ export class SushiswapPairFactory {
       .shiftedBy(this.toToken.decimals)
       .decimalPlaces(0);
 
-    return this._SushiswapRouterContractFactory.swapExactTokensForTokens(
+    return this._QuickswapRouterContractFactory.swapExactTokensForTokens(
       hexlify(amountIn),
       hexlify(amountMin),
       routePathArray,
-      this._sushiswapPairFactoryContext.ethereumAddress,
+      this._quickswapPairFactoryContext.ethereumAddress,
       deadline
     );
   }
@@ -601,7 +601,7 @@ export class SushiswapPairFactory {
   private buildUpTransactionErc20(data: string): Transaction {
     return {
       to: new ContractContext(this.chainId).routerAddress(),
-      from: this._sushiswapPairFactoryContext.ethereumAddress,
+      from: this._quickswapPairFactoryContext.ethereumAddress,
       data,
       value: Constants.EMPTY_HEX_STRING,
     };
@@ -618,7 +618,7 @@ export class SushiswapPairFactory {
   ): Transaction {
     return {
       to: new ContractContext(this.chainId).routerAddress(),
-      from: this._sushiswapPairFactoryContext.ethereumAddress,
+      from: this._quickswapPairFactoryContext.ethereumAddress,
       data,
       value: toEthersBigNumber(parseEther(ethValue)).toHexString(),
     };
@@ -631,7 +631,7 @@ export class SushiswapPairFactory {
     const now = new Date();
     const expiryDate = new Date(
       now.getTime() +
-        this._sushiswapPairFactoryContext.settings.deadlineMinutes * 60000
+        this._quickswapPairFactoryContext.settings.deadlineMinutes * 60000
     );
     return (expiryDate.getTime() / 1e3) | 0;
   }

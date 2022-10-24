@@ -1,5 +1,5 @@
-import { ChainId, ErrorCodes, SushiswapError } from '.';
-import { ContractContext as PairContractContext } from './ABI/types/sushiswap-pair';
+import { ChainId, ErrorCodes, QuickswapError } from '.';
+import { ContractContext as PairContractContext } from './ABI/types/quickswap-pair';
 import { ContractContext } from './common/contract-context';
 import { EthersProvider } from './ethers-provider';
 import { MockEthereumAddress } from './mocks/ethereum-address.mock';
@@ -7,12 +7,12 @@ import { MOCK_PROVIDER_URL } from './mocks/provider-url.mock';
 
 describe('EthersProvider', () => {
   describe('with chain id', () => {
-    const ethersProvider = new EthersProvider(ChainId.MAINNET);
+    const ethersProvider = new EthersProvider(ChainId.MATIC, MOCK_PROVIDER_URL());
 
     it('getContract', () => {
       const result = ethersProvider.getContract<PairContractContext>(
         JSON.stringify(ContractContext.pairAbi),
-        new ContractContext(ChainId.MAINNET).pairAddress()
+        new ContractContext(ChainId.MATIC).pairAddress()
       );
 
       expect(result).not.toBeUndefined();
@@ -21,13 +21,13 @@ describe('EthersProvider', () => {
     it('network', () => {
       const result = ethersProvider.network();
 
-      expect(result.chainId).toEqual(ChainId.MAINNET);
+      expect(result.chainId).toEqual(ChainId.MATIC);
     });
 
     it('provider', () => {
       const result = ethersProvider.provider;
 
-      expect(result.network.chainId).toEqual(ChainId.MAINNET);
+      expect(result.network.chainId).toEqual(ChainId.MATIC);
     });
 
     it('balanceOf', () => {
@@ -39,7 +39,7 @@ describe('EthersProvider', () => {
 
   describe('with chain id and providerUrl', () => {
     const ethersProvider = new EthersProvider(
-      ChainId.MAINNET,
+      ChainId.MATIC,
       MOCK_PROVIDER_URL()
     );
 
@@ -47,7 +47,7 @@ describe('EthersProvider', () => {
       expect(() => {
         new EthersProvider(10293, MOCK_PROVIDER_URL());
       }).toThrowError(
-        new SushiswapError(
+        new QuickswapError(
           'Can not find chain name for 10293',
           ErrorCodes.canNotFindChainId
         )
@@ -57,7 +57,7 @@ describe('EthersProvider', () => {
     it('getContract', () => {
       const result = ethersProvider.getContract<PairContractContext>(
         JSON.stringify(ContractContext.pairAbi),
-        new ContractContext(ChainId.MAINNET).pairAddress()
+        new ContractContext(ChainId.MATIC).pairAddress()
       );
 
       expect(result).not.toBeUndefined();
@@ -66,13 +66,13 @@ describe('EthersProvider', () => {
     it('network', () => {
       const result = ethersProvider.network();
 
-      expect(result.chainId).toEqual(ChainId.MAINNET);
+      expect(result.chainId).toEqual(ChainId.MATIC);
     });
 
     it('provider', () => {
       const result = ethersProvider.provider;
 
-      expect(result.network.chainId).toEqual(ChainId.MAINNET);
+      expect(result.network.chainId).toEqual(ChainId.MATIC);
     });
 
     it('balanceOf', () => {

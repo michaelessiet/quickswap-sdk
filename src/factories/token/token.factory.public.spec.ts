@@ -8,7 +8,7 @@ describe('TokenFactoryPublic', () => {
 
   const tokenFactoryPublic = new TokenFactoryPublic(
     token.contractAddress,
-    ChainId.MAINNET
+    ChainId.MATIC
   );
 
   it('getToken', async () => {
@@ -23,11 +23,11 @@ describe('TokenFactoryPublic', () => {
 
   it('generateApproveAllowanceData', () => {
     const result = tokenFactoryPublic.generateApproveAllowanceData(
-      new ContractContext(ChainId.MAINNET).routerAddress(),
+      new ContractContext(ChainId.MATIC).routerAddress(),
       '0x05'
     );
     expect(result).toEqual(
-      '0x095ea7b3000000000000000000000000d9e1ce17f2641f24ae83637ab66a2cca9c378b9f0000000000000000000000000000000000000000000000000000000000000005'
+      '0x095ea7b3000000000000000000000000a5e0829caced8ffdd4de3c43696c57f7d7a678ff0000000000000000000000000000000000000000000000000000000000000005'
     );
   });
 
@@ -38,7 +38,7 @@ describe('TokenFactoryPublic', () => {
 
   it('totalSupply', async () => {
     const result = await tokenFactoryPublic.totalSupply();
-    expect(result).toEqual('0x04d8c55aefb8c05b5c000000');
+    expect(result).toEqual('0x181c23647a808a16712b');
   });
 
   it('getAllowanceAndBalanceOf', async () => {

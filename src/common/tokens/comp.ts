@@ -1,21 +1,11 @@
 import { ChainId } from '../../enums/chain-id';
 import { ErrorCodes } from '../errors/error-codes';
-import { SushiswapError } from '../errors/sushiswap-error';
+import { QuickswapError } from '../errors/quickswap-error';
 
 /**
  * COMP token context CHANGE CONTRACT ADDRESS INFO ETC
  */
 export class COMP {
-  public static MAINNET() {
-    return {
-      chainId: ChainId.MAINNET,
-      contractAddress: '0xc00e94Cb662C3520282E6f5717214004A7f26888',
-      decimals: 18,
-      symbol: 'COMP',
-      name: 'Compound',
-    };
-  }
-
   public static MATIC() {
     return {
       chainId: ChainId.MATIC,
@@ -32,12 +22,10 @@ export class COMP {
    */
   public static token(chainId: ChainId | number) {
     switch (chainId) {
-      case ChainId.MAINNET:
-        return this.MAINNET();
       case ChainId.MATIC:
         return this.MATIC()
       default:
-        throw new SushiswapError(
+        throw new QuickswapError(
           `${chainId} is not allowed`,
           ErrorCodes.tokenChainIdContractDoesNotExist
         );

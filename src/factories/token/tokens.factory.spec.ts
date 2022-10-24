@@ -1,11 +1,12 @@
-import { ChainId, ErrorCodes, SushiswapError } from '../..';
+import { ChainId, ErrorCodes, QuickswapError } from '../..';
 import { EthersProvider } from '../../ethers-provider';
 import { MOCK1INCH } from '../../mocks/1inch-token.mock';
 import { MOCKAAVE } from '../../mocks/aave-token.mock';
+import { MOCK_PROVIDER_URL } from '../../mocks/provider-url.mock';
 import { TokensFactory } from './tokens.factory';
 
 describe('TokensFactory', () => {
-  const ethersProvider = new EthersProvider(ChainId.MAINNET);
+  const ethersProvider = new EthersProvider(ChainId.MATIC, MOCK_PROVIDER_URL());
 
   const tokensFactory = new TokensFactory(ethersProvider);
 
@@ -26,7 +27,7 @@ describe('TokensFactory', () => {
           MOCKAAVE().contractAddress,
         ])
       ).rejects.toThrowError(
-        new SushiswapError(
+        new QuickswapError(
           'invalid from or to contract tokens',
           ErrorCodes.invalidFromOrToContractToken
         )

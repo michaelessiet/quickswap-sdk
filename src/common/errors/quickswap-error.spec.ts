@@ -1,20 +1,20 @@
 import { ErrorCodes } from './error-codes';
-import { SushiswapError } from './sushiswap-error';
+import { QuickswapError } from './quickswap-error';
 
-describe('SushiswapError', () => {
+describe('QuickswapError', () => {
   const message = 'message_error';
   const code = ErrorCodes.canNotFindChainId;
-  const sushiswapError = new SushiswapError(message, code);
+  const quickswapError = new QuickswapError(message, code);
 
   it('should have the correct name on error', () => {
-    expect(sushiswapError.name).toEqual('SushiswapError');
+    expect(quickswapError.name).toEqual('QuickswapError');
   });
 
   it('should have the correct code on error', () => {
-    expect(sushiswapError.code).toEqual(code);
+    expect(quickswapError.code).toEqual(code);
   });
 
   it('should have the correct message on error', () => {
-    expect(sushiswapError.message).toEqual(message);
+    expect(quickswapError.message).toEqual(message);
   });
 });

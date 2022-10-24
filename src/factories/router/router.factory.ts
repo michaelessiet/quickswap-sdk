@@ -7,7 +7,7 @@ import {
 } from "ethereum-multicall";
 import { ContractContext } from "../../common/contract-context";
 import { ErrorCodes } from "../../common/errors/error-codes";
-import { SushiswapError } from "../../common/errors/sushiswap-error";
+import { QuickswapError } from "../../common/errors/quickswap-error";
 import { COMP } from "../../common/tokens/comp";
 import { DAI } from "../../common/tokens/dai";
 import { USDC } from "../../common/tokens/usdc";
@@ -26,7 +26,7 @@ import { BestRouteQuotes } from "./models/best-route-quotes";
 import { RouteQuote } from "./models/route-quote";
 import { TokenRoutes } from "./models/token-routes";
 
-export class SushiswapRouterFactory {
+export class QuickswapRouterFactory {
   private _multicall = new Multicall({
     ethersProvider: this._ethersProvider.provider,
     tryAggregate: true,
@@ -65,7 +65,7 @@ export class SushiswapRouterFactory {
     }
 
     const contractCallContext: ContractCallContext = {
-      reference: "sushiswap-pairs",
+      reference: "quickswap-pairs",
       contractAddress: new ContractContext(this.chainId).pairAddress(),
       abi: ContractContext.pairAbi,
       calls: [],
@@ -157,7 +157,7 @@ export class SushiswapRouterFactory {
     const routes = await this.getAllPossibleRoutes();
 
     const contractCallContext: ContractCallContext<Token[][]> = {
-      reference: "sushiswap-route-quotes",
+      reference: "quickswap-route-quotes",
       contractAddress: new ContractContext(this.chainId).routerAddress(),
       abi: ContractContext.routerAbi,
       calls: [],
@@ -195,7 +195,7 @@ export class SushiswapRouterFactory {
   ): Promise<BestRouteQuotes> {
     const allRoutes = await this.getAllPossibleRoutesWithQuotes(amountToTrade);
     if (allRoutes.length === 0) {
-      throw new SushiswapError(
+      throw new QuickswapError(
         `No routes found for ${this._fromToken.contractAddress} > ${this._toToken.contractAddress}`,
         ErrorCodes.noRoutesFound
       );
@@ -398,7 +398,7 @@ export class SushiswapRouterFactory {
             result.push(this.buildRouteQuoteForErc20ToErc20(callReturnContext));
             break;
           default:
-            throw new SushiswapError(
+            throw new QuickswapError(
               `${tradePath} not found`,
               ErrorCodes.tradePathIsNotSupported
             );
@@ -509,7 +509,7 @@ export class SushiswapRouterFactory {
       case TradePath.erc20ToErc20:
         return hexlify(amountToTrade.shiftedBy(this._fromToken.decimals));
       default:
-        throw new SushiswapError(
+        throw new QuickswapError(
           `Internal trade path ${this.tradePath} is not supported`,
           ErrorCodes.tradePathIsNotSupported
         );
@@ -521,7 +521,7 @@ export class SushiswapRouterFactory {
   }
 
   private get allMainTokens(): Token[] {
-    if (this._ethersProvider.provider.network.chainId === ChainId.MAINNET) {
+    if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         this.USDTTokenForConnectedNetwork,
         this.COMPTokenForConnectedNetwork,
@@ -535,7 +535,7 @@ export class SushiswapRouterFactory {
   }
 
   private get mainCurrenciesPairsForFromToken(): Token[][] {
-    if (this._ethersProvider.provider.network.chainId === ChainId.MAINNET) {
+    if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       const pairs = [
         [this._fromToken, this.USDTTokenForConnectedNetwork],
         [this._fromToken, this.COMPTokenForConnectedNetwork],
@@ -552,7 +552,7 @@ export class SushiswapRouterFactory {
   }
 
   private get mainCurrenciesPairsForToToken(): Token[][] {
-    if (this._ethersProvider.provider.network.chainId === ChainId.MAINNET) {
+    if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       const pairs: Token[][] = [
         [this.USDTTokenForConnectedNetwork, this._toToken],
         [this.COMPTokenForConnectedNetwork, this._toToken],
@@ -572,7 +572,7 @@ export class SushiswapRouterFactory {
   }
 
   private get mainCurrenciesPairsForUSDT(): Token[][] {
-    if (this._ethersProvider.provider.network.chainId === ChainId.MAINNET) {
+    if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         [this.USDTTokenForConnectedNetwork, this.COMPTokenForConnectedNetwork],
         [this.USDTTokenForConnectedNetwork, this.DAITokenForConnectedNetwork],
@@ -585,7 +585,7 @@ export class SushiswapRouterFactory {
   }
 
   private get mainCurrenciesPairsForCOMP(): Token[][] {
-    if (this._ethersProvider.provider.network.chainId === ChainId.MAINNET) {
+    if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         [this.COMPTokenForConnectedNetwork, this.USDTTokenForConnectedNetwork],
         [this.COMPTokenForConnectedNetwork, this.DAITokenForConnectedNetwork],
@@ -598,7 +598,7 @@ export class SushiswapRouterFactory {
   }
 
   private get mainCurrenciesPairsForDAI(): Token[][] {
-    if (this._ethersProvider.provider.network.chainId === ChainId.MAINNET) {
+    if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         [this.DAITokenForConnectedNetwork, this.COMPTokenForConnectedNetwork],
         [this.DAITokenForConnectedNetwork, this.WETHTokenForConnectedNetwork],
@@ -609,7 +609,7 @@ export class SushiswapRouterFactory {
   }
 
   private get mainCurrenciesPairsForUSDC(): Token[][] {
-    if (this._ethersProvider.provider.network.chainId === ChainId.MAINNET) {
+    if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         [this.USDCTokenForConnectedNetwork, this.USDTTokenForConnectedNetwork],
         [this.USDCTokenForConnectedNetwork, this.COMPTokenForConnectedNetwork],
@@ -622,7 +622,7 @@ export class SushiswapRouterFactory {
   }
 
   private get mainCurrenciesPairsForWETH(): Token[][] {
-    if (this._ethersProvider.provider.network.chainId === ChainId.MAINNET) {
+    if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         [this.WETHTokenForConnectedNetwork, this.USDTTokenForConnectedNetwork],
         [this.WETHTokenForConnectedNetwork, this.COMPTokenForConnectedNetwork],

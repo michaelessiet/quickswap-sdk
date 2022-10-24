@@ -1,15 +1,15 @@
 import { Contract, ContractInterface, providers } from 'ethers';
 import { ErrorCodes } from './common/errors/error-codes';
-import { SushiswapError } from './common/errors/sushiswap-error';
+import { QuickswapError } from './common/errors/quickswap-error';
 import { ChainId, ChainNames } from './enums/chain-id';
 
 export class EthersProvider {
   private _ethersProvider: providers.BaseProvider;
-  constructor(chainId: ChainId, providerUrl?: string | undefined) {
+  constructor(chainId: ChainId, providerUrl: string | undefined) {
     if (providerUrl) {
       const chainName = ChainNames.get(chainId);
       if (!chainName) {
-        throw new SushiswapError(
+        throw new QuickswapError(
           `Can not find chain name for ${chainId}`,
           ErrorCodes.canNotFindChainId
         );

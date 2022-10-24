@@ -1,20 +1,20 @@
-import { ChainId, ErrorCodes, SushiswapError, SushiswapPair } from '../..';
+import { ChainId, ErrorCodes, QuickswapError, QuickswapPair } from '../..';
 import { TradePath } from '../../enums/trade-path';
 import { MOCK1INCH } from '../../mocks/1inch-token.mock';
 import { MOCKAAVE } from '../../mocks/aave-token.mock';
 import { MockEthereumAddress } from '../../mocks/ethereum-address.mock';
 import { MOCK_PROVIDER_URL } from '../../mocks/provider-url.mock';
 import {
-  SushiswapPairContextForChainId,
-  SushiswapPairContextForProviderUrl,
-} from './models/sushiswap-pair-contexts';
+  QuickswapPairContextForChainId,
+  QuickswapPairContextForProviderUrl,
+} from './models/pair-contexts';
 
-describe('SushiswapPair', () => {
+describe('QuickswapPair', () => {
   it('should throw if no fromTokenContractAddress is passed in', () => {
     // @ts-ignore
-    const context: SushiswapPairContextForChainId = {};
-    expect(() => new SushiswapPair(context)).toThrowError(
-      new SushiswapError(
+    const context: QuickswapPairContextForChainId = {};
+    expect(() => new QuickswapPair(context)).toThrowError(
+      new QuickswapError(
         'Must have a `fromTokenContractAddress` on the context',
         ErrorCodes.fromTokenContractAddressRequired
       )
@@ -23,11 +23,11 @@ describe('SushiswapPair', () => {
 
   it('should throw if fromTokenContractAddress is invalid address', () => {
     // @ts-ignore
-    const context: SushiswapPairContextForChainId = {
+    const context: QuickswapPairContextForChainId = {
       fromTokenContractAddress: '1',
     };
-    expect(() => new SushiswapPair(context)).toThrowError(
-      new SushiswapError(
+    expect(() => new QuickswapPair(context)).toThrowError(
+      new QuickswapError(
         '`fromTokenContractAddress` is not a valid contract address',
         ErrorCodes.fromTokenContractAddressNotValid
       )
@@ -36,11 +36,11 @@ describe('SushiswapPair', () => {
 
   it('should throw if no toTokenContractAddress is passed in', () => {
     // @ts-ignore
-    const context: SushiswapPairContextForChainId = {
+    const context: QuickswapPairContextForChainId = {
       fromTokenContractAddress: MOCK1INCH().contractAddress,
     };
-    expect(() => new SushiswapPair(context)).toThrowError(
-      new SushiswapError(
+    expect(() => new QuickswapPair(context)).toThrowError(
+      new QuickswapError(
         'Must have a `toTokenContractAddress` on the context',
         ErrorCodes.toTokenContractAddressRequired
       )
@@ -49,12 +49,12 @@ describe('SushiswapPair', () => {
 
   it('should throw if toTokenContractAddress is invalid address', () => {
     // @ts-ignore
-    const context: SushiswapPairContextForChainId = {
+    const context: QuickswapPairContextForChainId = {
       fromTokenContractAddress: MOCK1INCH().contractAddress,
       toTokenContractAddress: '1',
     };
-    expect(() => new SushiswapPair(context)).toThrowError(
-      new SushiswapError(
+    expect(() => new QuickswapPair(context)).toThrowError(
+      new QuickswapError(
         '`toTokenContractAddress` is not a valid contract address',
         ErrorCodes.toTokenContractAddressNotValid
       )
@@ -63,12 +63,12 @@ describe('SushiswapPair', () => {
 
   it('should throw if no ethereumAddress is passed in', () => {
     // @ts-ignore
-    const context: SushiswapPairContextForChainId = {
+    const context: QuickswapPairContextForChainId = {
       fromTokenContractAddress: MOCK1INCH().contractAddress,
       toTokenContractAddress: MOCKAAVE().contractAddress,
     };
-    expect(() => new SushiswapPair(context)).toThrowError(
-      new SushiswapError(
+    expect(() => new QuickswapPair(context)).toThrowError(
+      new QuickswapError(
         'Must have a `ethereumAddress` on the context',
         ErrorCodes.ethereumAddressRequired
       )
@@ -77,13 +77,13 @@ describe('SushiswapPair', () => {
 
   it('should throw if ethereumAddress is invalid address', () => {
     // @ts-ignore
-    const context: SushiswapPairContextForChainId = {
+    const context: QuickswapPairContextForChainId = {
       fromTokenContractAddress: MOCK1INCH().contractAddress,
       toTokenContractAddress: MOCKAAVE().contractAddress,
       ethereumAddress: '1',
     };
-    expect(() => new SushiswapPair(context)).toThrowError(
-      new SushiswapError(
+    expect(() => new QuickswapPair(context)).toThrowError(
+      new QuickswapError(
         '`ethereumAddress` is not a valid address',
         ErrorCodes.ethereumAddressNotValid
       )
@@ -92,13 +92,13 @@ describe('SushiswapPair', () => {
 
   it('should throw if no chainId is passed in', () => {
     // @ts-ignore
-    const context: SushiswapPairContextForChainId = {
+    const context: QuickswapPairContextForChainId = {
       fromTokenContractAddress: MOCK1INCH().contractAddress,
       toTokenContractAddress: MOCKAAVE().contractAddress,
       ethereumAddress: MockEthereumAddress(),
     };
-    expect(() => new SushiswapPair(context)).toThrowError(
-      new SushiswapError(
+    expect(() => new QuickswapPair(context)).toThrowError(
+      new QuickswapError(
         'You must have a chainId on the context.',
         ErrorCodes.youMustSupplyAChainId
       )
@@ -106,48 +106,48 @@ describe('SushiswapPair', () => {
   });
 
   it('should create ethers provider', () => {
-    const context: SushiswapPairContextForChainId = {
+    const context: QuickswapPairContextForChainId = {
       fromTokenContractAddress: MOCK1INCH().contractAddress,
       toTokenContractAddress: MOCKAAVE().contractAddress,
       ethereumAddress: MockEthereumAddress(),
-      chainId: ChainId.MAINNET,
+      chainId: ChainId.MATIC,
       tradePath: TradePath.erc20ToErc20
     };
 
-    const sushiswapPair = new SushiswapPair(context);
+    const quickswapPair = new QuickswapPair(context);
 
     //@ts-ignore
-    expect(typeof sushiswapPair._ethersProvider).not.toBeUndefined();
+    expect(typeof quickswapPair._ethersProvider).not.toBeUndefined();
   });
 
   it('should create ethers provider', () => {
-    const context: SushiswapPairContextForProviderUrl = {
+    const context: QuickswapPairContextForProviderUrl = {
       fromTokenContractAddress: MOCK1INCH().contractAddress,
       toTokenContractAddress: MOCKAAVE().contractAddress,
       ethereumAddress: MockEthereumAddress(),
-      chainId: ChainId.MAINNET,
+      chainId: ChainId.MATIC,
       providerUrl: MOCK_PROVIDER_URL(),
       tradePath: TradePath.erc20ToErc20
     };
 
-    const sushiswapPair = new SushiswapPair(context);
+    const quickswapPair = new QuickswapPair(context);
 
     //@ts-ignore
-    expect(typeof sushiswapPair._ethersProvider).not.toBeUndefined();
+    expect(typeof quickswapPair._ethersProvider).not.toBeUndefined();
   });
 
   describe('createFactory', () => {
-    it('should create a sushiswap pair factory', async () => {
-      const context: SushiswapPairContextForChainId = {
+    it('should create a quickswap pair factory', async () => {
+      const context: QuickswapPairContextForChainId = {
         fromTokenContractAddress: MOCK1INCH().contractAddress,
         toTokenContractAddress: MOCKAAVE().contractAddress,
         ethereumAddress: MockEthereumAddress(),
-        chainId: ChainId.MAINNET,
+        chainId: ChainId.MATIC,
         tradePath: TradePath.erc20ToErc20
       };
 
-      const sushiswapPair = new SushiswapPair(context);
-      const factory = await sushiswapPair.createFactory();
+      const quickswapPair = new QuickswapPair(context);
+      const factory = await quickswapPair.createFactory();
       expect(factory.toToken).toEqual(MOCKAAVE());
       expect(factory.fromToken).toEqual(MOCK1INCH());
     });

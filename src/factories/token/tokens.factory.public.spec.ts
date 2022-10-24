@@ -1,14 +1,15 @@
 import {
   ChainId,
   ErrorCodes,
-  SushiswapError,
+  QuickswapError,
   TokensFactoryPublic,
 } from '../..';
 import { MOCK1INCH } from '../../mocks/1inch-token.mock';
 import { MOCKAAVE } from '../../mocks/aave-token.mock';
+import { MOCK_PROVIDER_URL } from '../../mocks/provider-url.mock';
 
 describe('TokensFactoryPublic', () => {
-  const tokensFactoryPublic = new TokensFactoryPublic(ChainId.MAINNET);
+  const tokensFactoryPublic = new TokensFactoryPublic(ChainId.MATIC, MOCK_PROVIDER_URL());
 
   describe('getTokens', () => {
     it('should return both token info', async () => {
@@ -27,7 +28,7 @@ describe('TokensFactoryPublic', () => {
           MOCKAAVE().contractAddress,
         ])
       ).rejects.toThrowError(
-        new SushiswapError(
+        new QuickswapError(
           'invalid from or to contract tokens',
           ErrorCodes.invalidFromOrToContractToken
         )

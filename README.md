@@ -1,4 +1,4 @@
-# simple-sushiswap-sdk-v2
+# quickswap-sdk
 
 <!-- [![npm version](https://badge.fury.io/js/simple-sushiswap-sdk.svg)](https://badge.fury.io/js/simple-sushiswap-sdk)
 ![downloads](https://img.shields.io/npm/dw/simple-sushiswap-sdk) -->

@@ -1,7 +1,7 @@
 {
-  "name": "simple-sushiswap-sdk-v2",
-  "version": "1.0.0",
-  "description": "A simple easy to understand SDK built for sushiswap on both Ethereum mainnet and Polygon mainnet",
+  "name": "quickswap-sdk",
+  "version": "0.5.0",
+  "description": "A simple easy to understand SDK built for quickswap on Polygon mainnet (Unofficial)",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
@@ -21,7 +21,7 @@
   "keywords": [
     "ethereum",
     "blockchain",
-    "sushiswap"
+    "quickswap"
   ],
   "bugs": {
     "url": "https://github.com/michaelessiet/simple-sushiswap-sdk-v2/issues"

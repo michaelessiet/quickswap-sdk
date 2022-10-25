@@ -8,7 +8,7 @@ import {
 import { ContractContext } from "../../common/contract-context";
 import { ErrorCodes } from "../../common/errors/error-codes";
 import { QuickswapError } from "../../common/errors/quickswap-error";
-import { COMP } from "../../common/tokens/comp";
+import { WMATIC } from "../../common/tokens";
 import { DAI } from "../../common/tokens/dai";
 import { USDC } from "../../common/tokens/usdc";
 import { USDT } from "../../common/tokens/usdt";
@@ -524,7 +524,7 @@ export class QuickswapRouterFactory {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         this.USDTTokenForConnectedNetwork,
-        this.COMPTokenForConnectedNetwork,
+        this.WMATICTokenForConnectedNetwork,
         this.USDCTokenForConnectedNetwork,
         this.DAITokenForConnectedNetwork,
         this.WETHTokenForConnectedNetwork,
@@ -538,7 +538,7 @@ export class QuickswapRouterFactory {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       const pairs = [
         [this._fromToken, this.USDTTokenForConnectedNetwork],
-        [this._fromToken, this.COMPTokenForConnectedNetwork],
+        [this._fromToken, this.WMATICTokenForConnectedNetwork],
         [this._fromToken, this.USDCTokenForConnectedNetwork],
         [this._fromToken, this.DAITokenForConnectedNetwork],
         [this._fromToken, this.WETHTokenForConnectedNetwork],
@@ -555,7 +555,7 @@ export class QuickswapRouterFactory {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       const pairs: Token[][] = [
         [this.USDTTokenForConnectedNetwork, this._toToken],
-        [this.COMPTokenForConnectedNetwork, this._toToken],
+        [this.WMATICTokenForConnectedNetwork, this._toToken],
         [this.USDCTokenForConnectedNetwork, this._toToken],
         [this.DAITokenForConnectedNetwork, this._toToken],
         [this.WETHTokenForConnectedNetwork, this._toToken],
@@ -574,7 +574,7 @@ export class QuickswapRouterFactory {
   private get mainCurrenciesPairsForUSDT(): Token[][] {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
-        [this.USDTTokenForConnectedNetwork, this.COMPTokenForConnectedNetwork],
+        [this.USDTTokenForConnectedNetwork, this.WMATICTokenForConnectedNetwork],
         [this.USDTTokenForConnectedNetwork, this.DAITokenForConnectedNetwork],
         [this.USDTTokenForConnectedNetwork, this.USDCTokenForConnectedNetwork],
         [this.USDTTokenForConnectedNetwork, this.WETHTokenForConnectedNetwork],
@@ -587,10 +587,10 @@ export class QuickswapRouterFactory {
   private get mainCurrenciesPairsForCOMP(): Token[][] {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
-        [this.COMPTokenForConnectedNetwork, this.USDTTokenForConnectedNetwork],
-        [this.COMPTokenForConnectedNetwork, this.DAITokenForConnectedNetwork],
-        [this.COMPTokenForConnectedNetwork, this.USDCTokenForConnectedNetwork],
-        [this.COMPTokenForConnectedNetwork, this.WETHTokenForConnectedNetwork],
+        [this.WMATICTokenForConnectedNetwork, this.USDTTokenForConnectedNetwork],
+        [this.WMATICTokenForConnectedNetwork, this.DAITokenForConnectedNetwork],
+        [this.WMATICTokenForConnectedNetwork, this.USDCTokenForConnectedNetwork],
+        [this.WMATICTokenForConnectedNetwork, this.WETHTokenForConnectedNetwork],
       ];
     }
 
@@ -600,7 +600,7 @@ export class QuickswapRouterFactory {
   private get mainCurrenciesPairsForDAI(): Token[][] {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
-        [this.DAITokenForConnectedNetwork, this.COMPTokenForConnectedNetwork],
+        [this.DAITokenForConnectedNetwork, this.WMATICTokenForConnectedNetwork],
         [this.DAITokenForConnectedNetwork, this.WETHTokenForConnectedNetwork],
       ];
     }
@@ -612,7 +612,7 @@ export class QuickswapRouterFactory {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         [this.USDCTokenForConnectedNetwork, this.USDTTokenForConnectedNetwork],
-        [this.USDCTokenForConnectedNetwork, this.COMPTokenForConnectedNetwork],
+        [this.USDCTokenForConnectedNetwork, this.WMATICTokenForConnectedNetwork],
         [this.USDCTokenForConnectedNetwork, this.DAITokenForConnectedNetwork],
         [this.USDCTokenForConnectedNetwork, this.WETHTokenForConnectedNetwork],
       ];
@@ -625,7 +625,7 @@ export class QuickswapRouterFactory {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         [this.WETHTokenForConnectedNetwork, this.USDTTokenForConnectedNetwork],
-        [this.WETHTokenForConnectedNetwork, this.COMPTokenForConnectedNetwork],
+        [this.WETHTokenForConnectedNetwork, this.WMATICTokenForConnectedNetwork],
         [this.WETHTokenForConnectedNetwork, this.DAITokenForConnectedNetwork],
         [this.WETHTokenForConnectedNetwork, this.USDCTokenForConnectedNetwork],
       ];
@@ -638,8 +638,8 @@ export class QuickswapRouterFactory {
     return USDT.token(this._ethersProvider.provider.network.chainId);
   }
 
-  private get COMPTokenForConnectedNetwork() {
-    return COMP.token(this._ethersProvider.provider.network.chainId);
+  private get WMATICTokenForConnectedNetwork() {
+    return WMATIC.token(this._ethersProvider.provider.network.chainId);
   }
 
   private get DAITokenForConnectedNetwork() {

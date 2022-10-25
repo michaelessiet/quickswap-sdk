@@ -475,7 +475,7 @@ export class QuickswapRouterFactory {
     const convertQuoteUnformatted = new BigNumber(
       callReturnContext.returnValues[
         callReturnContext.returnValues.length - 1
-      ].hex
+      ]?.hex ?? 0
     );
     return {
       expectedConvertQuote: new BigNumber(

@@ -53,7 +53,7 @@ export class QuickswapRouterFactory {
         this.mainCurrenciesPairsForFromToken,
         this.mainCurrenciesPairsForToToken,
         this.mainCurrenciesPairsForUSDT,
-        this.mainCurrenciesPairsForCOMP,
+        this.mainCurrenciesPairsForWMATIC,
         this.mainCurrenciesPairsForDAI,
         this.mainCurrenciesPairsForUSDC,
         this.mainCurrenciesPairsForWETH,
@@ -584,7 +584,7 @@ export class QuickswapRouterFactory {
     return [];
   }
 
-  private get mainCurrenciesPairsForCOMP(): Token[][] {
+  private get mainCurrenciesPairsForWMATIC(): Token[][] {
     if (this._ethersProvider.provider.network.chainId === ChainId.MATIC) {
       return [
         [this.WMATICTokenForConnectedNetwork, this.USDTTokenForConnectedNetwork],

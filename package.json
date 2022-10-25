@@ -1,5 +1,5 @@
 {
-  "name": "simple-quickswap-sdk",
+  "name": "lite-quickswap-sdk",
   "version": "1.0.0",
   "description": "A simple easy to understand SDK built for quickswap on Polygon mainnet (Unofficial)",
   "main": "dist/index.js",

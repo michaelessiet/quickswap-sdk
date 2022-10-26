@@ -1,7 +1,7 @@
-# lite-quickswap-sdk
+# quickswap-sdk-lite
 
-<!-- [![npm version](https://badge.fury.io/js/lite-quickswap-sdk.svg)](https://badge.fury.io/js/lite-quickswap-sdk)
-![downloads](https://img.shields.io/npm/dw/lite-quickswap-sdk) -->
+[![npm version](https://badge.fury.io/js/quickswap-sdk-lite.svg)](https://badge.fury.io/js/quickswap-sdk-lite)
+![downloads](https://img.shields.io/npm/dw/quickswap-sdk-lite)
 
 A Simple Quickswap SDK which handles the routes automatically for you, changes in trade quotes reactive subscriptions, exposure to formatted easy to understand information, bringing back the best trade quotes automatically, generating transactions for you and much more. All the Quickswap logic for you in a simple to easy understand interface to hook straight into your dApp without having to understand how it all works.
 
@@ -47,13 +47,13 @@ When I was integrating quickswap on our wallet I found that they lacked a proper
 ## npm
 
 ```bash
-$ npm install lite-quickswap-sdk
+$ npm install quickswap-sdk-lite
 ```
 
 ## yarn
 
 ```bash
-$ yarn add lite-quickswap-sdk
+$ yarn add quickswap-sdk-lite
 ```
 
 # SDK guide
@@ -116,7 +116,7 @@ export class QuickswapPairSettings {
 ```
 
 ```ts
-import { QuickswapPair, ChainId, TradePath } from 'lite-quickswap-sdk';
+import { QuickswapPair, ChainId, TradePath } from 'quickswap-sdk-lite';
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -206,7 +206,7 @@ export interface Token {
 #### Usage
 
 ```ts
-import { QuickswapPair, ChainId, TradePath } from 'lite-quickswap-sdk';
+import { QuickswapPair, ChainId, TradePath } from 'quickswap-sdk-lite';
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -258,7 +258,7 @@ export interface Token {
 #### Usage
 
 ```ts
-import { QuickswapPair, ChainId } from 'lite-quickswap-sdk';
+import { QuickswapPair, ChainId } from 'quickswap-sdk-lite';
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -407,7 +407,7 @@ export enum ChainId {
 #### ERC20 > ERC20
 
 ```ts
-import { QuickswapPair, ChainId, TradeContext } from 'lite-quickswap-sdk';
+import { QuickswapPair, ChainId, TradeContext } from 'quickswap-sdk-lite';
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -664,7 +664,7 @@ trade.destroy();
 #### ETH > ERC20
 
 ```ts
-import { QuickswapPair, WETH, TradePath, ChainId, TradeContext } from 'lite-quickswap-sdk';
+import { QuickswapPair, WETH, TradePath, ChainId, TradeContext } from 'quickswap-sdk-lite';
 
 const quickswapPair = new QuickswapPair({
   // use the WETH import from the lib, bare in mind you should use the
@@ -2035,7 +2035,7 @@ trade.destroy();
 #### ERC20 > ETH
 
 ```ts
-import { QuickswapPair, WETH, ChainId, TradeContext, TradePath } from 'lite-quickswap-sdk';
+import { QuickswapPair, WETH, ChainId, TradeContext, TradePath } from 'quickswap-sdk-lite';
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -3236,7 +3236,7 @@ async hasGotEnoughAllowance(amount: string): Promise<boolean>
 #### Usage
 
 ```ts
-import { QuickswapPair, ChainId, TradePath } from "lite-quickswap-sdk";
+import { QuickswapPair, ChainId, TradePath } from "quickswap-sdk-lite";
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -3273,7 +3273,7 @@ async allowance(): Promise<string>
 #### Usage
 
 ```ts
-import { QuickswapPair, ChainId, TradePath } from "lite-quickswap-sdk";
+import { QuickswapPair, ChainId, TradePath } from "quickswap-sdk-lite";
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -3317,7 +3317,7 @@ export interface Transaction {
 #### Usage
 
 ```ts
-import { QuickswapPair, ChainId } from 'lite-quickswap-sdk';
+import { QuickswapPair, ChainId } from 'quickswap-sdk-lite';
 
 // the contract address of the token you want to convert FROM
 const fromTokenContractAddress = '0xD6DF932A45C0f255f85145f286eA0b292B21C90B';
@@ -3363,7 +3363,7 @@ async findBestRoute(amountToTrade: string): Promise<RouteQuote>
 #### Usage
 
 ```ts
-import { QuickswapPair, ChainId, TradePath } from 'lite-quickswap-sdk';
+import { QuickswapPair, ChainId, TradePath } from 'quickswap-sdk-lite';
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -3431,7 +3431,7 @@ async findAllPossibleRoutesWithQuote(amountToTrade: string): Promise<RouteQuote[
 #### Usage
 
 ```ts
-import { QuickswapPair, ChainId, TradePath } from "lite-quickswap-sdk";
+import { QuickswapPair, ChainId, TradePath } from "quickswap-sdk-lite";
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -3631,7 +3631,7 @@ export interface Token {
 #### Usage
 
 ```ts
-import { QuickswapPair, ChainId, TradePath } from "lite-quickswap-sdk";
+import { QuickswapPair, ChainId, TradePath } from "quickswap-sdk-lite";
 
 const quickswapPair = new QuickswapPair({
   // the contract address of the token you want to convert FROM
@@ -3794,7 +3794,7 @@ export interface Token {
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from 'lite-quickswap-sdk';
+import { TokenFactoryPublic, ChainId } from 'quickswap-sdk-lite';
 
 const tokenContractAddress = '0x9c2C5fd7b07E95EE044DDeba0E97a665F142394f';
 
@@ -3825,7 +3825,7 @@ async allowance(ethereumAddress: string): Promise<string>
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from "lite-quickswap-sdk";
+import { TokenFactoryPublic, ChainId } from "quickswap-sdk-lite";
 
 const tokenContractAddress = "0x9c2C5fd7b07E95EE044DDeba0E97a665F142394f";
 
@@ -3852,7 +3852,7 @@ async balanceOf(ethereumAddress: string): Promise<string>
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from "lite-quickswap-sdk";
+import { TokenFactoryPublic, ChainId } from "quickswap-sdk-lite";
 
 const tokenContractAddress = "0x9c2C5fd7b07E95EE044DDeba0E97a665F142394f";
 
@@ -3879,7 +3879,7 @@ async totalSupply(): Promise<string>
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from "lite-quickswap-sdk";
+import { TokenFactoryPublic, ChainId } from "quickswap-sdk-lite";
 
 const tokenContractAddress = "0x9c2C5fd7b07E95EE044DDeba0E97a665F142394f";
 
@@ -3906,7 +3906,7 @@ generateApproveAllowanceData(spender: string, value: string): string
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from "lite-quickswap-sdk";
+import { TokenFactoryPublic, ChainId } from "quickswap-sdk-lite";
 
 const tokenContractAddress = "0x9c2C5fd7b07E95EE044DDeba0E97a665F142394f";
 
@@ -3950,7 +3950,7 @@ export interface AllowanceAndBalanceOf {
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from 'lite-quickswap-sdk';
+import { TokenFactoryPublic, ChainId } from 'quickswap-sdk-lite';
 
 const tokenContractAddress = '0x9c2C5fd7b07E95EE044DDeba0E97a665F142394f';
 
@@ -3998,7 +3998,7 @@ export interface Token {
 #### Usage
 
 ```ts
-import { TokensFactoryPublic, ChainId } from "lite-quickswap-sdk";
+import { TokensFactoryPublic, ChainId } from "quickswap-sdk-lite";
 
 const tokensFactoryPublic = new TokensFactoryPublic(
   ChainId.MATIC
@@ -4072,7 +4072,7 @@ export interface QuickswapPair {
 #### In QuickswapPairFactory
 
 ```ts
-import { QuickswapPair, ChainId, TradePath } from 'lite-quickswap-sdk';
+import { QuickswapPair, ChainId, TradePath } from 'quickswap-sdk-lite';
 
 // the contract address of the token you want to convert FROM
 const fromTokenContractAddress = '0xD6DF932A45C0f255f85145f286eA0b292B21C90B';
@@ -4103,7 +4103,7 @@ quickswapPairFactory.contractCalls;
 import {
   QuickswapPairContractFactoryPublic,
   ChainId,
-} from "lite-quickswap-sdk";
+} from "quickswap-sdk-lite";
 
 const quickswapPairContractFactoryPublic = new QuickswapPairContractFactoryPublic(
   ChainId.MATIC
@@ -4131,7 +4131,7 @@ async getPair(token0: string, token1: string): Promise<string>;
 ### Usage
 
 ```ts
-import { QuickswapContractFactoryPublic, ChainId } from "lite-quickswap-sdk";
+import { QuickswapContractFactoryPublic, ChainId } from "quickswap-sdk-lite";
 
 const quickswapContractFactoryPublic = new QuickswapContractFactoryPublic(
   ChainId.MATIC
@@ -4341,7 +4341,7 @@ swapExactTokensForTokensSupportingFeeOnTransferTokens(
 import {
   QuickswapRouterContractFactoryPublic,
   ChainId,
-} from "lite-quickswap-sdk";
+} from "quickswap-sdk-lite";
 
 const quickswapRouterContractFactoryPublic = new QuickswapRouterContractFactoryPublic(
   ChainId.MATIC
@@ -4367,7 +4367,7 @@ Ran all test suites.
 
 Please raise any issues in the below link.
 
-https://github.com/michaelessiet/lite-quickswap-sdk
+https://github.com/michaelessiet/quickswap-sdk-lite
 
 ## Thanks And Support
 
